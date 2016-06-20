@@ -1,43 +1,43 @@
-# keyboard-sounds README
+# keyboard-sounds Visual Studio Code Extension
 
-This is the README for your extension "keyboard-sounds". After writing up a brief description, we recommend including the following sections.
+An simple extension to play mechanical keyboard sounds while you type.
+
+Tested on Linux for now. Feel free to send me pull request to made it available on other platforms or add new features.
+
+** REPO: https://github.com/xfilipe/keyboard-sounds ***
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+This extension is active by default when installed, if `mplayer` was not found it will show an error message.
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Three different sounds will be played while you type, one for *space*, one for *delete/backspace* and one for all other keys.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+You must have `mplayer` installed and configured on your PATH.
 
-## Extension Settings
+** Ubuntu **
+```bash
+sudo apt-get install mplayer
+```
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+** Fedora **
+```bash
+sudo dnf install mplayer
+```
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+ * Was tested only on Linux.
+ * Don't play when you hold a key.
+ * Need to write tests.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-Initial release of ...
+Initial release
 
 
 ## LICENSE

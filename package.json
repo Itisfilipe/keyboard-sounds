@@ -1,12 +1,31 @@
 {
   "name": "keyboard-sounds",
-  "displayName": "keyboard-sounds",
-  "description": "Keyboard mechanical sounds for a better experience.",
-  "version": "0.0.1",
+  "displayName": "Keyboard Sounds",
+  "description": "Keyboard mechanical sounds for a better typing experience.",
+  "version": "1.0.0",
   "publisher": "xfilipe",
   "engines": {
     "vscode": "^1.0.0"
   },
+  "homepage": "https://github.com/xfilipe/keyboard-sounds",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xfilipe/keyboard-sounds.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xfilipe/keyboard-sounds/issues",
+    "email": "filipetamaral@gmail.com"
+  },
+  "keywords": [
+    "sound",
+    "keyboard",
+    "typing",
+    "mechanical",
+    "sounds",
+    "typewriter"
+  ],
+  "icon": "icon.png",
+  "license": "MIT",
   "categories": [
     "Other"
   ],
