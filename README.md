@@ -39,6 +39,10 @@ sudo dnf install mplayer
 
 Initial release
 
+### 1.0.1
+
+Removed a bug on package.json
+
 
 ## LICENSE
 
