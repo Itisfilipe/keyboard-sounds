@@ -11,7 +11,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:xfilipe_keyboard_sounds.activate"
+    "*"
   ],
   "main": "./out/src/extension",
   "contributes": {

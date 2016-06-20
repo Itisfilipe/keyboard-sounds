@@ -6,37 +6,52 @@ import {spawn} from 'child_process';
 
 export function activate(context: vscode.ExtensionContext) {
 
-    let basePath: string =  path.join(__dirname,'..', '..');
-    let spaceAudio: string = path.join(basePath, 'audio', 'spacebar_press.mp3');
-    let deleteAudio: string = path.join(basePath, 'audio', 'delete_press.mp3');
-    let otherKeysAudio: string = path.join(basePath, 'audio', 'key_press.mp3');
-
     let player: AudioPlayer;
+    let listener: editorListener;
 
     console.log('Congratulations, your extension "keyboard-sounds" is now active!');
 
-    let disposable = vscode.commands.registerCommand('xfilipe_keyboard_sounds.activate', () => {
-        player = player || new AudioPlayer();
-        let disposables: vscode.Disposable[] = [];
+    player = player || new AudioPlayer();
+    listener = listener || new editorListener(player);
 
-        vscode.workspace.onDidChangeTextDocument((e)=> {
-            let pressedKey = e.contentChanges[0].text;
-            if (pressedKey == ""){
-                player.play(deleteAudio);
-            } else if (pressedKey == " "){
-                player.play(spaceAudio);
-            }  else {
-                player.play(otherKeysAudio);
-            }
-        }, this, disposables);
-    });
-
-    context.subscriptions.push(disposable);
+    context.subscriptions.push(listener);
 }
 
 // this method is called when your extension is deactivated
 export function deactivate() {
 }
+
+
+class editorListener {
+        private _disposable: vscode.Disposable;
+        private _subscriptions: vscode.Disposable[] = [];
+        private _basePath: string =  path.join(__dirname,'..', '..');
+        private _spaceAudio: string = path.join(this._basePath, 'audio', 'spacebar_press.mp3');
+        private _deleteAudio: string = path.join(this._basePath, 'audio', 'delete_press.mp3');
+        private _otherKeysAudio: string = path.join(this._basePath, 'audio', 'key_press.mp3');
+
+        constructor(private player: AudioPlayer){
+            // vscode.window.onDidChangeTextEditorSelection(this._keystrokeCallback, this, this._subscriptions);
+            // vscode.window.onDidChangeActiveTextEditor(this._keystrokeCallback, this, this._subscriptions);
+            vscode.workspace.onDidChangeTextDocument(this._keystrokeCallback, this, this._subscriptions);
+            this._disposable = vscode.Disposable.from(...this._subscriptions);
+         }
+
+        _keystrokeCallback(e){
+            let pressedKey = e.contentChanges[0].text;
+            if (pressedKey == ""){
+                this.player.play(this._deleteAudio);
+            } else if (pressedKey == " "){
+                this.player.play(this._spaceAudio);
+            }  else {
+                this.player.play(this._otherKeysAudio);
+            }
+        }
+
+        dispose() {
+            this._disposable.dispose();
+        }
+    };
 
 /**
  * Audio player for keystroke sounds
