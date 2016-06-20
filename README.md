@@ -1,10 +1,10 @@
-# keyboard-sounds Visual Studio Code Extension
+# Keyboard Sounds Visual Studio Code Extension
 
 An simple extension to play mechanical keyboard sounds while you type.
 
 Tested on Linux for now. Feel free to send me pull request to made it available on other platforms or add new features.
 
-** REPO: https://github.com/xfilipe/keyboard-sounds ***
+**REPO: https://github.com/xfilipe/keyboard-sounds**
 
 ## Features
 
@@ -16,12 +16,12 @@ Three different sounds will be played while you type, one for *space*, one for *
 
 You must have `mplayer` installed and configured on your PATH.
 
-** Ubuntu **
+**Ubuntu**
 ```bash
 sudo apt-get install mplayer
 ```
 
-** Fedora **
+**Fedora**
 ```bash
 sudo dnf install mplayer
 ```
