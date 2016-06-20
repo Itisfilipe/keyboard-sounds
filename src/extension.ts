@@ -2,17 +2,16 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import {spawn} from 'child_process';
-// import * as events from 'events';
+
+let player: AudioPlayer;
+let listener: EditorListener;
 
 export function activate(context: vscode.ExtensionContext) {
-
-    let player: AudioPlayer;
-    let listener: editorListener;
-
     console.log('Congratulations, your extension "keyboard-sounds" is now active!');
 
+    // to avoid multiple different instances
     player = player || new AudioPlayer();
-    listener = listener || new editorListener(player);
+    listener = listener || new EditorListener(player);
 
     context.subscriptions.push(listener);
 }
@@ -21,8 +20,10 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {
 }
 
-
-class editorListener {
+/**
+ * Listen to editor changes and play a sound when a key is pressed.
+ */
+export class EditorListener {
         private _disposable: vscode.Disposable;
         private _subscriptions: vscode.Disposable[] = [];
         private _basePath: string =  path.join(__dirname,'..', '..');
@@ -31,8 +32,6 @@ class editorListener {
         private _otherKeysAudio: string = path.join(this._basePath, 'audio', 'key_press.mp3');
 
         constructor(private player: AudioPlayer){
-            // vscode.window.onDidChangeTextEditorSelection(this._keystrokeCallback, this, this._subscriptions);
-            // vscode.window.onDidChangeActiveTextEditor(this._keystrokeCallback, this, this._subscriptions);
             vscode.workspace.onDidChangeTextDocument(this._keystrokeCallback, this, this._subscriptions);
             this._disposable = vscode.Disposable.from(...this._subscriptions);
          }
@@ -40,10 +39,13 @@ class editorListener {
         _keystrokeCallback(e){
             let pressedKey = e.contentChanges[0].text;
             if (pressedKey == ""){
+                // backspace or delete pressed
                 this.player.play(this._deleteAudio);
             } else if (pressedKey == " "){
+                // space pressed
                 this.player.play(this._spaceAudio);
             }  else {
+                // any other keys
                 this.player.play(this._otherKeysAudio);
             }
         }
@@ -56,17 +58,34 @@ class editorListener {
 /**
  * Audio player for keystroke sounds
  */
-class AudioPlayer {
+export class AudioPlayer {
     private _process: any = undefined;
-    private _stopped:boolean = true
+    private _stopped:boolean = true;
 
     play(filePath: string){
-        if(!this._stopped)
+        // stop mplayer before play again to avoid delays
+        if(!this._stopped){
             this.stop()
+        }
 
         this._stopped = false;
         let args = ["-ao", "alsa", filePath];
+
+        // spawn let us communicate with our child process
+        // TODO: spawn every time a key is pressed not seems good,
+        // maybe change this create just one child for the object
+        // and use it to play the file multiple times.
         this._process = spawn('mplayer', args);
+
+        // see if an error occours
+        this._process.on('error', function (err) {
+            if (err.code == "ENOENT") {
+                // error no entry (file/directory)
+                vscode.window.showErrorMessage("Keyboard Sounds: Apparently you do not have 'mplayer' installed on your $PATH, see README for more information")
+            } else {
+                vscode.window.showErrorMessage("Keyboard Sounds: Something went wrong!!!")
+            }
+        });
     }
 
     stop(){
