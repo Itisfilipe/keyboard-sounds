@@ -2,7 +2,7 @@
   "name": "keyboard-sounds",
   "displayName": "Keyboard Sounds",
   "description": "Keyboard mechanical sounds for a better typing experience.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "xfilipe",
   "engines": {
     "vscode": "^1.0.0"
