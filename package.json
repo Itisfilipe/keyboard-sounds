@@ -34,10 +34,10 @@
   "main": "./out/src/extension",
   "contributes": {
     "commands": [
-      {
-        "command": "xfilipe_keyboard_sounds.activate",
-        "title": "Activate Keyboard Sounds"
-      }
+      // {
+      //   "command": "xfilipe_keyboard_sounds.activate",
+      //   "title": "Activate Keyboard Sounds"
+      // }
     ]
   },
   "scripts": {
