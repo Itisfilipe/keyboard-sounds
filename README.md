@@ -46,6 +46,7 @@ Removed a bug on package.json
 ### 1.1.0
 
 Activation and deactivation added
+volume set to 100%, in the future I will add controls for it
 
 
 ## LICENSE
