@@ -43,6 +43,10 @@ Initial release
 
 Removed a bug on package.json
 
+### 1.1.0
+
+Activation and deactivation added
+
 
 ## LICENSE
 

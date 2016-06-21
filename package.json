@@ -2,7 +2,7 @@
   "name": "keyboard-sounds",
   "displayName": "Keyboard Sounds",
   "description": "Keyboard mechanical sounds for a better typing experience.",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "publisher": "xfilipe",
   "engines": {
     "vscode": "^1.0.0"
@@ -34,6 +34,14 @@
   "main": "./out/src/extension",
   "contributes": {
     "commands": [
+      {
+        "command": "xfilipe_keyboard_sounds.activate",
+        "title": "Keyboard Sounds: Activate"
+      },
+      {
+        "command": "xfilipe_keyboard_sounds.deactivate",
+        "title": "Keyboard Sounds: Deactivate"
+      }
     ]
   },
   "scripts": {
