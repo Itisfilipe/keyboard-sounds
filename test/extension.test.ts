@@ -26,6 +26,6 @@ suite("Audio Player Tests", () => {
     test("should not throw an error while playing", () => {
         assert.doesNotThrow(()=>{
             player.play(spaceAudio);
-        }, Error);
+        });
     });
 });
