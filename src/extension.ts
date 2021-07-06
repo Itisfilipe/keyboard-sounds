@@ -103,7 +103,7 @@ export class AudioPlayer {
         }
 
         this._stopped = false;
-        let args = ["-ao", "alsa", "-volume", "100", filePath];
+        let args = [filePath];
 
         // spawn let us communicate with our child process
         // TODO: spawn every time a key is pressed not seems good,
