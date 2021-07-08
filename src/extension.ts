@@ -38,6 +38,7 @@ export function activate(context: vscode.ExtensionContext) {
         }
     });
 
+    // @ts-ignore - for some reason it insists subscriptions is an object and not an array
     context.subscriptions.push(listener);
 }
 
@@ -54,6 +55,7 @@ export class EditorListener {
     private _basePath: string = path.join(__dirname, '..', '..');
     private _spaceAudio: string = path.join(this._basePath, 'audio', 'spacebar_press.mp3');
     private _deleteAudio: string = path.join(this._basePath, 'audio', 'delete_press.mp3');
+    private _enterAudio: string = path.join(this._basePath, 'audio', 'enter_press.wav');
     private _otherKeysAudio: string = path.join(this._basePath, 'audio', 'key_press.mp3');
 
     constructor(private player: AudioPlayer) {
@@ -61,17 +63,21 @@ export class EditorListener {
         this._disposable = vscode.Disposable.from(...this._subscriptions);
     }
 
-    _keystrokeCallback(e) {
+    _keystrokeCallback(e : vscode.TextDocumentChangeEvent) {
         if (!isActive) {
             return;
         }
-        let pressedKey = e.contentChanges[0].text;
-        if (pressedKey == "") {
+        let enteredText = e.contentChanges[0].text;
+        if (enteredText == "") {
             // backspace or delete pressed
             this.player.play(this._deleteAudio);
-        } else if (pressedKey == " ") {
+        } else if (enteredText == " ") {
             // space pressed
             this.player.play(this._spaceAudio);
+        } else if (enteredText == "\n" || enteredText.length > 2) {
+            // enter pressed (length > 2 is a proxy for enter - it happens when autocomplete is used)
+            // we use >2 instead of >1 so this this won't trigger when user enters { and it autocompletes to {}
+            this.player.play(this._enterAudio);
         } else {
             // any other keys
             this.player.play(this._otherKeysAudio);
@@ -97,7 +103,7 @@ export class AudioPlayer {
         }
 
         this._stopped = false;
-        let args = ["-ao", "alsa", "-volume", "100", filePath];
+        let args = [filePath];
 
         // spawn let us communicate with our child process
         // TODO: spawn every time a key is pressed not seems good,
