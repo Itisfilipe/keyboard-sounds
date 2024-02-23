@@ -2,7 +2,7 @@
   "name": "keyboard-sounds",
   "displayName": "Keyboard Sounds",
   "description": "Keyboard mechanical sounds for a better typing experience.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "publisher": "xfilipe",
   "engines": {
     "vscode": "^1.57.0"
@@ -41,6 +41,14 @@
       {
         "command": "xfilipe_keyboard_sounds.deactivate",
         "title": "Keyboard Sounds: Deactivate"
+      },
+      {
+        "command": "xfilipe_keyboard_sounds.enable_matrix",
+        "title": "Keyboard Sounds: Enable Matrix Sounds"
+      },
+      {
+        "command": "xfilipe_keyboard_sounds.disable_matrix",
+        "title": "Keyboard Sounds: Disable Matrix Sounds"
       }
     ]
   },
