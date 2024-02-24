@@ -86,7 +86,7 @@ export class EditorListener {
     private _otherKeysAudio: string = path.join(this._basePath, 'audio', 'key_press.mp3');
     
     //Matrix sounds
-    private _spaceAudioM: string = path.join(this._basePath, 'audio/matrix-key-sounds', 'matrix-key.wav');
+    private _spaceAudioM: string = path.join(this._basePath, 'audio/matrix-key-sounds', 'space-audio.wav');
     private _deleteAudioM: string = path.join(this._basePath, 'audio/matrix-key-sounds', 'matrix-key-3.wav');
     private _enterAudioM: string = path.join(this._basePath, 'audio/matrix-key-sounds', 'enter-audio.wav');
     private _otherKeysAudioM1: string = path.join(this._basePath, 'audio/matrix-key-sounds', 'matrix-key.wav');
